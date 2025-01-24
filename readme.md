@@ -2,16 +2,8 @@
 
 game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
-Stipulation: Cards
- 
-
 ## TODO
 
-- Import the project into Godot
-
-- Get Butler API key from [itch.io](https://itch.io/user/settings/api-keys)
-- Publish github repo
-- Add key to GitHub secrets as BUTLER_API_KEY [link](https://github.com/bjornarprytz/bubbleoids/settings/secrets/actions)
 - Push release with `./push_release.sh`
 
 ### Extra

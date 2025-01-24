@@ -4,6 +4,14 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 ## TODO
 
+- Tweak physics
+- Tweak controls
+
+### Bugs
+
+- Gravity well not adjusted to planet scale
+- Fix call_deferred stuff
+
 - Push release with `./push_release.sh`
 
 ### Extra

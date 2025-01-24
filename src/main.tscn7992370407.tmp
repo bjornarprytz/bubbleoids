@@ -11,10 +11,9 @@ script = ExtResource("1_h2yge")
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 unique_name_in_owner = true
-position = Vector2(899, 330)
+position = Vector2(577, 689)
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 
 [node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]
-position = Vector2(-1000, -1000)

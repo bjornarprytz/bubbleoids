@@ -5,7 +5,11 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 ## TODO
 
 - Tweak physics
+  - Planet Gravity
 - Tweak controls
+  - Stay in orbit, move up and down
+- Tweak planet generation
+  - More distance between
 
 ### Bugs
 

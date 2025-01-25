@@ -3,5 +3,8 @@ extends Node2D
 @onready var camera: Camera2D = %Camera
 
 
+func _ready() -> void:
+	Symphony.add_instrument()
+
 func _process(delta: float) -> void:
 	camera.position = player.position

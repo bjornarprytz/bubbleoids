@@ -1,9 +1,10 @@
 class_name Planet
 extends Node2D
 
-@onready var gravity_well_shape: CollisionShape2D = %Shape
-@onready var visual: RegularPolygon = %Visual
+@onready var gravity_well: Area2D = %GravityWell
+@onready var gravity_well_shape: CollisionShape2D = %GravityWell/Shape
 @onready var sprite: Sprite2D = %Sprite
+@onready var negate_gravity_shape: CollisionShape2D = %NegateGravity/Shape
 
 const BROWN_RAMS = preload("res://assets/img/planets/Brown RAMS.png")
 const GREENGRAY_MOON = preload("res://assets/img/planets/greengray moon.png")
@@ -43,9 +44,22 @@ var sprites = [
 	, WEIRD_ARRET
 ]
 
+var size : float = 1.0
+
 var radius: float:
 	get:
-		return gravity_well_shape.shape.radius * scale.x
+		return gravity_well_shape.shape.radius * size
+
+func set_size(s: float):
+	size = s
+	scale = Vector2(s,s)
+	gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
+	print("gravity_well.gravity_point_unit_distance set to %s" % gravity_well.gravity_point_unit_distance)
 
 func _ready() -> void:
 	sprite.texture = sprites.pick_random()
+
+
+func _on_gravity_well_body_entered(body: Node2D) -> void:
+	if (body is Player):
+		Symphony.add_instrument()

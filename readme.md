@@ -4,17 +4,25 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 ## TODO
 
-- Tweak physics
-  - Planet Gravity
 - Tweak controls
-  - Stay in orbit, move up and down
-- Tweak planet generation
-  - More distance between
+  - Stay in orbit
+  - move up and down
+  - Slingshot out?
+
+- Audio
+  - Add cool tracks
+  - Add effect when inside a bubble?
 
 ### Bugs
 
+- Sometimes infinite scroll doesn't scroll
 - Gravity well not adjusted to planet scale
-- Fix call_deferred stuff
+
+### Nice to have
+
+- Space HUD. eg:
+  - Matching gravity...
+  - Orbit acquired.
 
 - Push release with `./push_release.sh`
 
@@ -28,11 +36,3 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
   - Pick a genre
   - Add a tag or two
   - Publish a devlog on instagram
-
-### Meta
-
-- Figure out how to use these Godot tools
-  - Theme
-  - UI
-- Tackle multiplayer in HTML5
-  - https://www.reddit.com/r/godot/comments/bux2hs/how_to_use_godots_high_level_multiplayer_api_with/

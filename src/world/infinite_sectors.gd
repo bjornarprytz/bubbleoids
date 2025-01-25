@@ -5,7 +5,7 @@ extends Node2D
 
 # Check which sectors are in view and load their neighbors
 @export var camera: Camera2D
-@export var cache_size: Vector2i = Vector2i(4, 4)
+@export var cache_size: Vector2i = Vector2i(3, 3)
 
 var sectors: Array[Sector] = []
 
@@ -59,5 +59,5 @@ func _scroll_sectors() -> void:
 
 		# Only reposition if needed
 		if sector_coords != sector.coordinates:
-			sector.set_coords_and_regenerate_planets(sector_coords)
+			sector.set_coords_and_regenerate_planets.call_deferred(sector_coords)
 			sector.position = Vector2(sector_coords.x * sector_size.x, sector_coords.y * sector_size.y)

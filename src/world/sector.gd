@@ -1,21 +1,23 @@
 class_name Sector
 extends Node2D
 
-@export var size = Vector2(2048, 1152)
-@export var planet_count = 10
-@export var min_distance = 50 # Minimum distance between planets
+@export var size = Vector2(1000, 1000)
+@export var planet_count = 3
+@export var min_distance = 20 # Minimum distance between planets
 
-var planets : Array[Planet] = []
+var planets: Array[Planet] = []
 
 signal entered_screen()
 signal exited_screen()
 
-signal player_entered(sector:Sector, player: Player)
+signal player_entered(sector: Sector, player: Player)
 
 var coordinates: Vector2 = Vector2()
 
 func set_coords_and_regenerate_planets(coords: Vector2i) -> void:
+	
 	self.coordinates = coords
+
 	# Seed the random number generator
 	seed(hash(coords))
 
@@ -28,22 +30,24 @@ func set_coords_and_regenerate_planets(coords: Vector2i) -> void:
 	# Generate new planets
 	for i in range(planet_count):
 		var planet = Create.planet()
-		var scale_factor = randf_range(0.6, 1)
 		
 		planets.append(planet)
 		add_child(planet)
 		
-		planet.scale = Vector2(scale_factor, scale_factor)
+		planet.set_size(randf_range(0.6, 1))
 		set_valid_position_or_destroy(planet, min_distance)
 
 func set_valid_position_or_destroy(planet: Planet, min_dist: float) -> void:
+
+	var planetSafePerimiter = planet.radius + min_dist
+
 	var max_attempts = 50 # Prevent infinite loops
 	for _i in range(max_attempts):
-		var pos = Vector2(randf_range(0, size.x), randf_range(0, size.y))
+		var pos = Vector2(randf_range(planetSafePerimiter, size.x - planetSafePerimiter), randf_range(planetSafePerimiter, size.y - planetSafePerimiter))
 		# Check distance to all existing planets
 		var valid = true
 		for other in planets:
-			if pos.distance_to(other.position) < (min_dist + other.radius + planet.radius):
+			if pos.distance_to(other.position) < (planetSafePerimiter + other.radius):
 				valid = false
 				break
 		if valid:

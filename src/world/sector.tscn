@@ -8,7 +8,6 @@ size = Vector2(1000, 1000)
 
 [node name="Sector" type="Node2D"]
 script = ExtResource("1_rfmyu")
-size = Vector2(1000, 1000)
 
 [node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(0, 0, 1000, 1000)

@@ -1,8 +1,9 @@
 class_name Player
 extends RigidBody2D
 
-@export var speed: float = 800.0
+@export var speed: float = 100.0
 @export var rotation_speed: float = 3.0  # Lowered for smoother rotation
+@onready var exhaust: CPUParticles2D = %Exhaust
 
 var throttle: bool = false
 var turn: float = 0.0
@@ -10,8 +11,10 @@ var turn: float = 0.0
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("throttle"):
 		throttle = true
+		exhaust.emitting = true
 	elif event.is_action_released("throttle"):
 		throttle = false
+		exhaust.emitting = false
 
 	# Get rotation input (supports both keyboard and joystick)
 	turn = Input.get_axis("ui_left", "ui_right")

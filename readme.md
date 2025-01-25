@@ -4,10 +4,9 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 ## TODO
 
-
 - Screens
   - game name?
-  - credids?
+  - credits?
 
 - Tweak controls
   - Stay in orbit
@@ -16,11 +15,12 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 - indicate which planets are undiscovered
 
-- Maintain planet state
+- Maintain planet state (when re-scrolling a sector)
 
 ### Bugs
 
-- Sometimes infinite scroll doesn't scroll
+- Sometimes infinite scroll doesn't scroll properly
+- Gamepad on web doesn't work: ship doesn't turn
 
 ### Nice to have
 

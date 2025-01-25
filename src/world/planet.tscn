@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8v5nh4qd750n"]
+[gd_scene load_steps=10 format=3 uid="uid://c8v5nh4qd750n"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
 [ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
@@ -12,6 +12,9 @@ radius = 2500.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpsm4"]
 radius = 250.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ijjmx"]
+radius = 489.331
 
 [node name="Planet" type="Node2D"]
 texture_filter = 1
@@ -64,8 +67,7 @@ gravity = 0.0
 
 [node name="Bubble" type="Sprite2D" parent="NegateGravity"]
 unique_name_in_owner = true
-position = Vector2(0, 31.8961)
-scale = Vector2(1.64784, 1.89438)
+scale = Vector2(1.65, 1.65)
 texture = ExtResource("4_qpsm4")
 
 [node name="Pop" type="CPUParticles2D" parent="NegateGravity"]
@@ -91,6 +93,11 @@ scale_amount_max = 0.2
 
 [node name="Shape" type="CollisionShape2D" parent="NegateGravity"]
 shape = SubResource("CircleShape2D_qpsm4")
+
+[node name="Orbit" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="Orbit"]
+shape = SubResource("CircleShape2D_ijjmx")
 
 [node name="DebridsBelt" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true

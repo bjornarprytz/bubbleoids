@@ -19,3 +19,6 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]
 position = Vector2(-1000, -1000)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+unique_name_in_owner = true

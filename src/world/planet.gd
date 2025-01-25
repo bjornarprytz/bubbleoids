@@ -59,7 +59,7 @@ func _pop_bubble():
 	bubble.hide()
 	pop.emitting = true
 
-func _on_beat():
+func _on_beat(_number: int):
 	var tween = create_tween()
 	poulace.emitting = true
 	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)

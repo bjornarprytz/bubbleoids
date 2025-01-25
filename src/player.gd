@@ -79,6 +79,7 @@ func _input(event: InputEvent) -> void:
 func get_gravity_at(delta: float, position: Vector2) -> Vector2:
 	var gravity = Vector2(0, 0)
 	var nearest_planet_r = 10_000_000
+	host_planet = null
 	for i in range(len(nearby_planets)):
 		var planet = nearby_planets[i]
 		var vec = planet.global_position - self.global_position

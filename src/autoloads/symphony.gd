@@ -1,7 +1,8 @@
 extends Node2D
 
-signal beat
+signal beat(number: int)
 
+var order: Array[String] = []
 var _streamPlayers: Dictionary[String, AudioStreamPlayer] = {}
 
 const tempo: int = 102
@@ -24,6 +25,7 @@ var instruments: Array[AudioStream] = [
 	preload("res://assets/audio/symphony/Soundship15.wav")
 ]
 
+var beat_number: int = 0
 var time_counter: float = 0.0
 var seconds_per_beat: float = 60.0 / tempo
 
@@ -34,7 +36,8 @@ func _process(delta: float) -> void:
 	time_counter += delta
 	if time_counter > seconds_per_beat:
 		time_counter -= seconds_per_beat
-		beat.emit()
+		beat_number += 1
+		beat.emit(beat_number)
 
 func muffle():
 	print("Muffle disabled due to poor web performance")
@@ -49,6 +52,11 @@ func unmuffle():
 # Make sure it stays in sync
 func _restart_beat():
 	time_counter = 0.0
+	beat_number = 0
+
+func full_ensemble():
+	while (instruments.size() > 0):
+		add_instrument()
 
 func add_instrument():
 	if (instruments.size() == 0):
@@ -67,10 +75,28 @@ func add_instrument():
 	player.finished.connect(player.play)
 	var instrument = instruments.pop_front() as AudioStream
 		
-	_streamPlayers[instrument.resource_path] = player
+	var key = instrument.resource_path
+	_streamPlayers[key] = player
+	order.push_back(key)
 	var current_playback_position: float = 0.0
 	if (_streamPlayers.size() > 0):
 		current_playback_position = _streamPlayers.values()[0].get_playback_position()
 		
 	player.stream = instrument
 	player.play(current_playback_position)
+
+func pop_instrument() -> bool:
+	if (order.size() == 0):
+		print("No instruments to pop")
+		return false
+	var key = order.pop_back()
+	var player = _streamPlayers[key]
+	player.stop()
+	instruments.push_back(player.stream)
+	_streamPlayers.erase(key)
+	player.queue_free()
+	if (_streamPlayers.size() == 0):
+		start_beat = false
+		time_counter = 0.0
+	
+	return true

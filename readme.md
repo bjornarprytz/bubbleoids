@@ -1,6 +1,6 @@
 # bubbleoids
 
-game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
+game on itch.io: [link](https://thewarlock.itch.io/soundship)
 
 ## TODO
 

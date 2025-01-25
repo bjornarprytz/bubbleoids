@@ -8,7 +8,7 @@ on:
 
 env:
   ITCHIO_USERNAME: thewarlock
-  GAME_NAME: bubbleoids
+  GAME_NAME: soundship
   PROJECT_PATH: "./src/"
   GODOT_VERSION: 4.4-beta1
 

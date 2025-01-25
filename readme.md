@@ -1,4 +1,4 @@
-# bubbleoids
+# soundship
 
 game on itch.io: [link](https://thewarlock.itch.io/soundship)
 

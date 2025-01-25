@@ -54,12 +54,15 @@ func set_size(s: float):
 	size = s
 	scale = Vector2(s,s)
 	gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
-	print("gravity_well.gravity_point_unit_distance set to %s" % gravity_well.gravity_point_unit_distance)
 
 func _ready() -> void:
 	sprite.texture = sprites.pick_random()
 
+func _on_negate_gravity_body_exited(body: Node2D) -> void:
+	if (body is Player):
+		Symphony.unmuffle()
 
-func _on_gravity_well_body_entered(body: Node2D) -> void:
+func _on_negate_gravity_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		Symphony.add_instrument()
+		Symphony.muffle()

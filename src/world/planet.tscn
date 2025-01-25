@@ -82,5 +82,5 @@ radial_accel_max = -50.0
 scale_amount_min = 0.1
 scale_amount_max = 0.2
 
-[connection signal="body_entered" from="GravityWell" to="." method="_on_gravity_well_body_entered"]
-[connection signal="body_entered" from="NegateGravity" to="." method="_on_gravity_well_body_entered"]
+[connection signal="body_entered" from="NegateGravity" to="." method="_on_negate_gravity_body_entered"]
+[connection signal="body_exited" from="NegateGravity" to="." method="_on_negate_gravity_body_exited"]

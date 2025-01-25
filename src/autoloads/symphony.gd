@@ -21,7 +21,6 @@ func unmuffle():
 		player.set_bus("Master")
 
 func add_instrument():
-	
 	if (instruments.size() == 0):
 		print("Found all instruments already")
 		return

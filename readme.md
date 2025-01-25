@@ -4,6 +4,7 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 ## TODO
 
+
 - Screens
   - game name?
   - credids?
@@ -13,12 +14,9 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
   - move up and down
   - Slingshot out?
 
-- Add discovery goals
-  - UI
-  - Track
+- indicate which planets are undiscovered
 
-- Audio
-  - Add cool tracks
+- Maintain planet state
 
 ### Bugs
 

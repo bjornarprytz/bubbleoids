@@ -15,7 +15,6 @@ signal player_entered(sector: Sector, player: Player)
 var coordinates: Vector2 = Vector2()
 
 func set_coords_and_regenerate_planets(coords: Vector2i) -> void:
-	
 	self.coordinates = coords
 
 	# Seed the random number generator

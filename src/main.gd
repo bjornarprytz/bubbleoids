@@ -4,7 +4,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	Symphony.add_instrument()
+	pass
 
 func _process(delta: float) -> void:
 	camera.position = player.position

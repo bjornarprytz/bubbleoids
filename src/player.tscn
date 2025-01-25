@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7eksb1ln826g"]
+[gd_scene load_steps=7 format=3 uid="uid://7eksb1ln826g"]
 
 [ext_resource type="Script" uid="uid://ptd6iy6d356e" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="2_onrkg"]
@@ -12,6 +12,10 @@ height = 36.0
 _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_i3pqv"]
+offsets = PackedFloat32Array(0.522059, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [node name="Player" type="RigidBody2D"]
 texture_filter = 1
@@ -40,3 +44,44 @@ scale_amount_min = 0.5
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 hue_variation_curve = SubResource("Curve_onrkg")
+
+[node name="Hud" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0.803922, 0.478431, 1)
+z_index = 1
+offset_left = -47.0
+offset_top = -81.0
+offset_right = 48.0
+offset_bottom = -29.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Hud"]
+layout_mode = 2
+
+[node name="Goal" type="RichTextLabel" parent="Hud/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "10 / 15"
+fit_content = true
+autowrap_mode = 0
+
+[node name="projection" type="Line2D" parent="Hud"]
+points = PackedVector2Array(47, 67, 1, 0)
+width = 2.0
+gradient = SubResource("Gradient_i3pqv")
+
+[node name="projection2" type="Line2D" parent="Hud"]
+points = PackedVector2Array(47, 67, 2, 50)
+width = 2.0
+gradient = SubResource("Gradient_i3pqv")
+
+[node name="projection3" type="Line2D" parent="Hud"]
+points = PackedVector2Array(47, 67, 93, 3)
+width = 2.0
+gradient = SubResource("Gradient_i3pqv")
+
+[node name="projection4" type="Line2D" parent="Hud"]
+points = PackedVector2Array(47, 67, 93, 50)
+width = 2.0
+gradient = SubResource("Gradient_i3pqv")

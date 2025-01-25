@@ -9,16 +9,6 @@ script = ExtResource("1_h2yge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Tutorial" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 468.0
-offset_top = 622.0
-offset_right = 814.0
-offset_bottom = 701.0
-text = "Throttle: Space
-Turn: arrow keys"
-fit_content = true
-autowrap_mode = 0
-
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 unique_name_in_owner = true
 position = Vector2(899, 330)

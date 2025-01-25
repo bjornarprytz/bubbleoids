@@ -50,13 +50,16 @@ var planet_sprites = [
 
 var size: float = 1.0
 var bubble_popped = false
+var type: String
 
 var radius: float:
 	get:
 		return gravity_well_shape.shape.radius * size
 
 func _ready() -> void:
-	sprite.texture = planet_sprites.pick_random()
+	var texture = planet_sprites.pick_random()
+	sprite.texture = texture
+	type = texture.get_path().get_file().get_basename()
 
 func set_size(s: float):
 	size = s
@@ -67,7 +70,6 @@ func _pop_bubble():
 	if bubble_popped:
 		return
 	bubble_popped = true
-	Symphony.add_instrument()
 	Symphony.beat.connect(_on_beat)
 	bubble.hide()
 	pop.emitting = true
@@ -85,4 +87,4 @@ func _on_negate_gravity_body_exited(body: Node2D) -> void:
 func _on_negate_gravity_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		_pop_bubble()
-		
+		body.discover(self)

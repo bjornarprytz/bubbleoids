@@ -34,7 +34,7 @@ shape = SubResource("CapsuleShape2D_i3pqv")
 
 [node name="Exhaust" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -2)
+position = Vector2(-15, 0)
 emitting = false
 texture = ExtResource("3_i3pqv")
 local_coords = true
@@ -91,3 +91,8 @@ gradient = SubResource("Gradient_i3pqv")
 points = PackedVector2Array(47, 67, 93, 50)
 width = 2.0
 gradient = SubResource("Gradient_i3pqv")
+
+[node name="Trace" type="Line2D" parent="."]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+width = 1.0

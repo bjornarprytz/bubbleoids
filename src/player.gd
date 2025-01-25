@@ -7,6 +7,7 @@ extends RigidBody2D
 @onready var exhaust: CPUParticles2D = %Exhaust
 @onready var hud: PanelContainer = %Hud
 @onready var goal: RichTextLabel = %Goal
+@onready var trace: Line2D = %Trace
 
 #var throttle: bool = false
 var throttle_plus: bool = false
@@ -21,6 +22,7 @@ var discovered: Array[String] = []
 
 func _ready() -> void:
 	goal.text = "%s / %s" % [discovered.size(), Events.goal]
+	
 
 func discover(planet: Planet):
 	if planet.type in discovered:
@@ -74,21 +76,9 @@ func _input(event: InputEvent) -> void:
 	# Get rotation input (supports both keyboard and joystick)
 	turn = Input.get_axis("ui_left", "ui_right")
 
-func _physics_process(delta: float) -> void:
-	# Thrust in the direction the spaceship is facing
-	
-	#if throttle and nearest_planet_dir:
-	#	var direction = Vector2.UP.rotated(rotation) # Correct forward direction
-	#	apply_central_impulse(direction * speed * delta)
-		
+func get_gravity_at(delta: float, position: Vector2) -> Vector2:
+	var gravity = Vector2(0, 0)
 	var nearest_planet_r = 10_000_000
-	var nearest_planet_dir = null
-	var nearest_planet_pos = null
-	if host_planet:
-		var vec = host_planet.global_position - self.global_position
-		nearest_planet_dir = vec.normalized()
-		nearest_planet_pos = host_planet.global_position
-	
 	for i in range(len(nearby_planets)):
 		var planet = nearby_planets[i]
 		var vec = planet.global_position - self.global_position
@@ -96,21 +86,46 @@ func _physics_process(delta: float) -> void:
 		var r = vec.length()/1000+0.2 
 		if r < nearest_planet_r and r < 1:
 			nearest_planet_r = r
-			nearest_planet_dir = dir
-			nearest_planet_pos = planet.global_position
+			host_planet = planet
 		if r<0.4:
 			r = r -(r-0.4)*0.7
 		if r>1:
 			r = r**2
 		#print(i, " ", len(nearby_planets), " ", planet.id, " ", r)
 		var fudge: float = 0.4;
-		apply_central_impulse(150.0 * delta * dir * planet.size**2 / (r**2+fudge))
+		gravity += 150.0 * delta * dir * planet.size**2 / (r**2+fudge)
 		#print("applied", 1/(r**2.0)*2_000_000*delta)
 		#print("applied", speed * delta)
-	var target_speed  = 200
-	apply_central_impulse(-linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
+	return gravity
+
+func _physics_process(delta: float) -> void:
+	# Thrust in the direction the spaceship is facing
 	
-	if nearest_planet_dir:
+	#if throttle and nearest_planet_dir:
+	#	var direction = Vector2.UP.rotated(rotation) # Correct forward direction
+	#	apply_central_impulse(direction * speed * delta)
+		
+		
+	var gravity = get_gravity_at(delta, global_position)
+
+	apply_central_impulse(gravity)
+	
+	var p = Vector2(0, 0)
+	var v = -transform.basis_xform_inv(linear_velocity)
+	for i in range(len(trace.points)):
+		p += -v*delta
+		var g = get_gravity_at(delta, global_position + transform.basis_xform(v))
+		v += -transform.basis_xform_inv(g)
+		trace.points[i] = p
+	
+	var target_speed  = 200
+	if linear_velocity.length() > target_speed:
+		apply_central_impulse(-0.25*linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
+	
+	if host_planet:
+		var vec = host_planet.global_position - self.global_position
+		var nearest_planet_dir = vec.normalized()
+		#var nearest_planet_pos = host_planet.global_position
 		var throttle_dir = (linear_velocity 
 							- nearest_planet_dir
 							* nearest_planet_dir.dot(linear_velocity)).normalized()
@@ -123,7 +138,7 @@ func _physics_process(delta: float) -> void:
 			apply_central_impulse(-2*throttle_dir * speed * delta)
 			look_at(global_position + nearest_planet_dir)
 	
-	print("speed: %.1f " % linear_velocity.length(), "nearest_planet_r: %.2f " % nearest_planet_r)
+	print("speed: %.1f " % linear_velocity.length())
 		
 	# Rotate based on input
 	#if turn != 0:

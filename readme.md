@@ -13,7 +13,10 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
   - move up and down
   - Slingshot out?
 
-- indicate which planets are undiscovered
+- UI
+  - Move to screen space
+  - Goal tracker
+  - indicate which planets are undiscovered
 
 - Maintain planet state (when re-scrolling a sector)
 

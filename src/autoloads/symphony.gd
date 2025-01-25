@@ -6,13 +6,23 @@ var _streamPlayers: Dictionary[String, AudioStreamPlayer] = {}
 
 const tempo: int = 102
 
-var instruments: Array[AudioStream] = []
-const symphony_folder = "res://assets/audio/symphony/"
-func _ready() -> void:
-	for file in DirAccess.get_files_at(symphony_folder):
-		if (file.ends_with(".wav")):
-			instruments.push_back(ResourceLoader.load(symphony_folder + file))
-	pass
+var instruments: Array[AudioStream] = [
+	preload("res://assets/audio/symphony/Soundship01.wav"),
+	preload("res://assets/audio/symphony/Soundship02.wav"),
+	preload("res://assets/audio/symphony/Soundship03.wav"),
+	preload("res://assets/audio/symphony/Soundship04.wav"),
+	preload("res://assets/audio/symphony/Soundship05.wav"),
+	preload("res://assets/audio/symphony/Soundship06.wav"),
+	preload("res://assets/audio/symphony/Soundship07.wav"),
+	preload("res://assets/audio/symphony/Soundship08.wav"),
+	preload("res://assets/audio/symphony/Soundship09.wav"),
+	preload("res://assets/audio/symphony/Soundship10.wav"),
+	preload("res://assets/audio/symphony/Soundship11.wav"),
+	preload("res://assets/audio/symphony/Soundship12.wav"),
+	preload("res://assets/audio/symphony/Soundship13.wav"),
+	preload("res://assets/audio/symphony/Soundship14.wav"),
+	preload("res://assets/audio/symphony/Soundship15.wav")
+]
 
 var time_counter: float = 0.0
 var seconds_per_beat: float = 60.0 / tempo

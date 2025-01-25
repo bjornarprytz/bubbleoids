@@ -27,5 +27,5 @@ position = Vector2(640, 400)
 [node name="Logo" type="Sprite2D" parent="Target"]
 unique_name_in_owner = true
 position = Vector2(0, 624)
-scale = Vector2(0.720165, 0.720165)
+scale = Vector2(0.169547, 0.169547)
 texture = ExtResource("1_b04ml")

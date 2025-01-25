@@ -5,7 +5,7 @@ extends Node2D
 
 # Check which sectors are in view and load their neighbors
 @export var camera: Camera2D
-@export var cache_size: Vector2i = Vector2i(3, 3)
+@export var cache_size: Vector2i = Vector2i(4, 4)
 
 var sectors: Array[Sector] = []
 

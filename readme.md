@@ -12,9 +12,6 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 - Audio
   - Add cool tracks
 
-- Effects
-  - Bubble pop
-
 ### Bugs
 
 - Sometimes infinite scroll doesn't scroll

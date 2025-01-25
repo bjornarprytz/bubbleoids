@@ -11,7 +11,9 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 - Audio
   - Add cool tracks
-  - Add effect when inside a bubble?
+
+- Effects
+  - Bubble pop
 
 ### Bugs
 

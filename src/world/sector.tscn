@@ -21,6 +21,7 @@ position = Vector2(500, 500)
 shape = SubResource("RectangleShape2D_rfmyu")
 
 [node name="Background" type="Sprite2D" parent="."]
+visibility_layer = 4
 z_index = -1
 texture = ExtResource("2_qy6gs")
 centered = false

@@ -9,7 +9,7 @@ script = ExtResource("1_h2yge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Tutorial" type="RichTextLabel" parent="CanvasLayer"]
 offset_left = 468.0
 offset_top = 622.0
 offset_right = 814.0

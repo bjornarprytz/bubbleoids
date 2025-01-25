@@ -5,6 +5,10 @@ extends Node2D
 @onready var gravity_well_shape: CollisionShape2D = %GravityWell/Shape
 @onready var sprite: Sprite2D = %Sprite
 @onready var negate_gravity_shape: CollisionShape2D = %NegateGravity/Shape
+@onready var poulace: CPUParticles2D = %Poulace
+@onready var debrids_belt: CPUParticles2D = %DebridsBelt
+@onready var bubble: Sprite2D = %Bubble
+@onready var pop: CPUParticles2D = %Pop
 
 const BROWN_RAMS = preload("res://assets/img/planets/Brown RAMS.png")
 const GREENGRAY_MOON = preload("res://assets/img/planets/greengray moon.png")
@@ -24,7 +28,7 @@ const TERRA_2 = preload("res://assets/img/planets/TERRA 2.png")
 const TERRA = preload("res://assets/img/planets/TERRA.png")
 const WEIRD_ARRET = preload("res://assets/img/planets/WEIRD ARRET.png")
 
-var sprites = [
+var planet_sprites = [
 	BROWN_RAMS
 	, GREENGRAY_MOON
 	, MARS_1
@@ -44,19 +48,35 @@ var sprites = [
 	, WEIRD_ARRET
 ]
 
-var size : float = 1.0
+var size: float = 1.0
+var bubble_popped = false
 
 var radius: float:
 	get:
 		return gravity_well_shape.shape.radius * size
 
+func _ready() -> void:
+	sprite.texture = planet_sprites.pick_random()
+
 func set_size(s: float):
 	size = s
-	scale = Vector2(s,s)
+	scale = Vector2(s, s)
 	gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
 
-func _ready() -> void:
-	sprite.texture = sprites.pick_random()
+func _pop_bubble():
+	if bubble_popped:
+		return
+	bubble_popped = true
+	Symphony.add_instrument()
+	Symphony.beat.connect(_on_beat)
+	bubble.hide()
+	pop.emitting = true
+
+func _on_beat():
+	var tween = create_tween()
+	poulace.emitting = true
+	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
+	tween.tween_property(sprite, "scale", Vector2.ONE, .169)
 
 func _on_negate_gravity_body_exited(body: Node2D) -> void:
 	if (body is Player):
@@ -64,5 +84,5 @@ func _on_negate_gravity_body_exited(body: Node2D) -> void:
 
 func _on_negate_gravity_body_entered(body: Node2D) -> void:
 	if (body is Player):
-		Symphony.add_instrument()
-		Symphony.muffle()
+		_pop_bubble()
+		

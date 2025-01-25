@@ -1,33 +1,58 @@
 extends Node2D
 
+signal beat
+
 var _streamPlayers: Dictionary[String, AudioStreamPlayer] = {}
 
+const tempo : int = 102
+
 var instruments: Array[AudioStream] = [
-	preload("res://assets/audio/Bookworm - MichaelBackson - 16.06.2024, 22.59.wav"),
-	#preload("res://assets/audio/Bookworm - mixtape3 - 16.06.2024, 23.07.wav"),
-	#preload("res://assets/audio/Bookworm - morningistheend - 16.06.2024, 23.09.wav")
+	preload("res://assets/audio/Soundship.wav")
 ]
 
 func _ready() -> void:
 	instruments.shuffle()
 
+var time_counter: float = 0.0
+var seconds_per_beat: float = 60.0 / tempo
+
+var start_beat = false
+func _process(delta: float) -> void:
+	if !start_beat:
+		return
+	time_counter += delta
+	if time_counter > seconds_per_beat:
+		time_counter -= seconds_per_beat
+		beat.emit()
+
 func muffle():
+	print("Muffle disabled due to poor web performance")
+	return
 	for player in _streamPlayers.values():
-		print("muffle")
 		player.set_bus("Muffle")
 func unmuffle():
+	return
 	for player in _streamPlayers.values():
-		print("unmuffle")
 		player.set_bus("Master")
+
+# Make sure it stays in sync
+func _restart_beat():
+	time_counter = 0.0
 
 func add_instrument():
 	if (instruments.size() == 0):
 		print("Found all instruments already")
 		return
 	
+	# Star the beat along with the first instrument
+	
 	var player = AudioStreamPlayer.new()
 	add_child(player)
 	
+	if _streamPlayers.size() == 0:
+		start_beat = true
+		time_counter = 0.0
+		player.finished.connect(_restart_beat)
 	player.finished.connect(player.play)
 	var instrument = instruments.pop_front() as AudioStream
 	

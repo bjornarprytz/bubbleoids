@@ -51,20 +51,23 @@ var planet_sprites = [
 var size: float = 1.0
 var bubble_popped = false
 var type: String
+var id: float = 0
 
 var radius: float:
 	get:
-		return gravity_well_shape.shape.radius * size
+		return gravity_well_shape.shape.radius * size * 0.15
 
 func _ready() -> void:
 	var texture = planet_sprites.pick_random()
 	sprite.texture = texture
 	type = texture.get_path().get_file().get_basename()
+	id = randf_range(0,1 )
+	
 
 func set_size(s: float):
 	size = s
 	scale = Vector2(s, s)
-	gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
+	#gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
 
 func _pop_bubble():
 	if bubble_popped:
@@ -79,6 +82,19 @@ func _on_beat():
 	poulace.emitting = true
 	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
 	tween.tween_property(sprite, "scale", Vector2.ONE, .169)
+
+func _on_gravity_well_body_exited(body: Node2D) -> void:
+	if (body is Player):
+		body.nearby_planets.erase(self)
+		#sprite.visible = true
+		print("exited")
+
+func _on_gravity_well_body_entered(body: Node2D) -> void:
+	if (body is Player):
+		body.nearby_planets.push_back(self)
+		print("entered")
+		#sprite.visible = false
+		#%Player.nearby_planets.
 
 func _on_negate_gravity_body_exited(body: Node2D) -> void:
 	if (body is Player):

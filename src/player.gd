@@ -8,9 +8,14 @@ extends RigidBody2D
 @onready var hud: PanelContainer = %Hud
 @onready var goal: RichTextLabel = %Goal
 
-var throttle: bool = false
+#var throttle: bool = false
+var throttle_plus: bool = false
+var throttle_minus: bool = false
 var turn: float = 0.0
 var force_show_hud = false
+
+var nearby_planets: Array[Planet] = []
+var host_planet = null
 
 var discovered: Array[String] = []
 
@@ -45,11 +50,17 @@ func show_hud():
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("throttle"):
-		throttle = true
+	if event.is_action_pressed("throttle_plus"):
+		throttle_plus = true
 		exhaust.emitting = true
-	elif event.is_action_released("throttle"):
-		throttle = false
+	elif event.is_action_released("throttle_plus"):
+		throttle_plus = false
+		exhaust.emitting = false
+	if event.is_action_pressed("throttle_minus"):
+		throttle_minus = true
+		exhaust.emitting = true
+	elif event.is_action_released("throttle_minus"):
+		throttle_minus = false
 		exhaust.emitting = false
 	
 	if event.is_action_pressed("hud"):
@@ -65,12 +76,57 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Thrust in the direction the spaceship is facing
-	if throttle:
-		var direction = Vector2.UP.rotated(rotation) # Correct forward direction
-		apply_central_impulse(direction * speed * delta)
-
+	
+	#if throttle and nearest_planet_dir:
+	#	var direction = Vector2.UP.rotated(rotation) # Correct forward direction
+	#	apply_central_impulse(direction * speed * delta)
+		
+	var nearest_planet_r = 10_000_000
+	var nearest_planet_dir = null
+	var nearest_planet_pos = null
+	if host_planet:
+		var vec = host_planet.global_position - self.global_position
+		nearest_planet_dir = vec.normalized()
+		nearest_planet_pos = host_planet.global_position
+	
+	for i in range(len(nearby_planets)):
+		var planet = nearby_planets[i]
+		var vec = planet.global_position - self.global_position
+		var dir = vec.normalized()
+		var r = vec.length()/1000+0.2 
+		if r < nearest_planet_r and r < 1:
+			nearest_planet_r = r
+			nearest_planet_dir = dir
+			nearest_planet_pos = planet.global_position
+		if r<0.4:
+			r = r -(r-0.4)*0.7
+		if r>1:
+			r = r**2
+		#print(i, " ", len(nearby_planets), " ", planet.id, " ", r)
+		var fudge: float = 0.4;
+		apply_central_impulse(150.0 * delta * dir * planet.size**2 / (r**2+fudge))
+		#print("applied", 1/(r**2.0)*2_000_000*delta)
+		#print("applied", speed * delta)
+	var target_speed  = 200
+	apply_central_impulse(-linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
+	
+	if nearest_planet_dir:
+		var throttle_dir = (linear_velocity 
+							- nearest_planet_dir
+							* nearest_planet_dir.dot(linear_velocity)).normalized()
+		
+		look_at(global_position - nearest_planet_dir)
+		
+		if throttle_plus:
+			apply_central_impulse(2*throttle_dir * speed * delta)	
+		if throttle_minus:
+			apply_central_impulse(-2*throttle_dir * speed * delta)
+			look_at(global_position + nearest_planet_dir)
+	
+	print("speed: %.1f " % linear_velocity.length(), "nearest_planet_r: %.2f " % nearest_planet_r)
+		
 	# Rotate based on input
-	if turn != 0:
-		angular_velocity = turn * rotation_speed # Better handling than manual rotate()
-	else:
-		angular_velocity = 0 # Stop spinning when no input
+	#if turn != 0:
+	#	angular_velocity = turn * rotation_speed # Better handling than manual rotate()
+	#else:
+	#	angular_velocity = 0 # Stop spinning when no input

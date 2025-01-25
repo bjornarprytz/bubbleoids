@@ -4,10 +4,18 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 
 ## TODO
 
+- Screens
+  - game name?
+  - credids?
+
 - Tweak controls
   - Stay in orbit
   - move up and down
   - Slingshot out?
+
+- Add discovery goals
+  - UI
+  - Track
 
 - Audio
   - Add cool tracks
@@ -15,10 +23,10 @@ game on itch.io: [link](https://thewarlock.itch.io/bubbleoids)
 ### Bugs
 
 - Sometimes infinite scroll doesn't scroll
-- Gravity well not adjusted to planet scale
 
 ### Nice to have
 
+- Different dance moves (depending on instrument?)
 - Space HUD. eg:
   - Matching gravity...
   - Orbit acquired.

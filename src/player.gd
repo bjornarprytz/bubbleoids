@@ -81,8 +81,7 @@ func _physics_process(delta: float) -> void:
 
 	if host_planet:
 		# Lerp rotation to face away from the planet
-		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI / 2), 0.1)
-
+		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI /2) , 0.04)
 		if throttle:
 			apply_central_impulse(4 * Vector2.UP.rotated(rotation) * speed * delta)
 		else:
@@ -91,15 +90,6 @@ func _physics_process(delta: float) -> void:
 			# Apply dampening force in radial direction
 			apply_central_impulse(-1.0 * radial_dir * linear_velocity.dot(radial_dir) * delta)
 			# Apply a dampening force in the azimuthal direction 
-			var distance = (host_planet.global_position - global_position).length() / 100
-			var azimuthal_dir = Vector2(radial_dir[1], radial_dir[0])
-			if azimuthal_dir.dot(linear_velocity) < 0:
-				azimuthal_dir = -azimuthal_dir
-			var target_azimuth_speed = 125.0 / distance ** 2
-			var overshoot = (linear_velocity.dot(azimuthal_dir) - target_azimuth_speed) / target_azimuth_speed
-			#if overshoot > 0:
-			#	apply_central_impulse( - 100 * overshoot * azimuthal_dir * delta)
-			#print(linear_velocity.dot(radial_dir) * delta, " ", 100 * overshoot * delta)
 			if linear_velocity.length() > 100.0:
 				burn.emitting = true
 		if (turn != 0):

@@ -90,15 +90,9 @@ func add_instrument():
 	player.stream = instrument
 	player.play(current_playback_position)
 	maestro.finished.connect(player.play.bind(0.0))
-		
-	
-	print ("New instrument (%s)" % _streamPlayers.size())
-	for track in _streamPlayers.values():
-		print ("PB_POS: [%f.00]" % track.get_playback_position())
 
 func pop_instrument() -> bool:
 	if (order.size() == 0):
-		print("No instruments to pop")
 		return false
 	var key = order.pop_back()
 	var player = _streamPlayers[key]

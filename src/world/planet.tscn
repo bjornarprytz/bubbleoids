@@ -8,13 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
-radius = 2500.0
+radius = 1800.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpsm4"]
 radius = 250.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ijjmx"]
-radius = 489.331
+radius = 400.0
 
 [node name="Planet" type="Node2D"]
 texture_filter = 1

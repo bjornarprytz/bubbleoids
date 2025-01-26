@@ -2,9 +2,14 @@ class_name Player
 extends RigidBody2D
 
 signal atmosphere_entered(planet: Planet)
+signal atmosphere_exited
+
+signal orbit_entered(planet: Planet)
+signal orbit_exited
 
 @export var speed: float = 150.0
 @export var rotation_speed: float = 3.0 # Lowered for smoother rotation
+@export var strafe_speed = 200.0
 
 @onready var exhaust: CPUParticles2D = %Exhaust
 @onready var burn: CPUParticles2D = %Burn
@@ -66,26 +71,19 @@ func _physics_process(delta: float) -> void:
 
 	if host_planet:
 		# Lerp rotation to face away from the planet
-
 		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI /2) , 0.1)
 
-		var vec = host_planet.global_position - self.global_position
-		var nearest_planet_dir = vec.normalized()
-		#var nearest_planet_pos = host_planet.global_position
-		var throttle_dir = (linear_velocity 
-							- nearest_planet_dir
-							* nearest_planet_dir.dot(linear_velocity)).normalized()
 		if throttle:
-			apply_central_impulse(2*throttle_dir * speed * delta)
+			apply_central_impulse(Vector2.UP.rotated(rotation) * speed * delta)
 		else:
 			# Apply a dampening force
-			apply_central_impulse(-0.25*linear_velocity * delta)
-			
-			if linear_velocity.length() > 1.0:
+			apply_central_impulse(-2.0*linear_velocity * delta)
+			if linear_velocity.length() > 100.0:
 				burn.emitting = true
-		
-
-	
+		if (turn != 0):
+			# Apply sideways strafe
+			var strafe = Vector2.RIGHT.rotated(rotation) * delta * turn * strafe_speed
+			apply_central_impulse(strafe)
 	else:
 		# Rotate based on input
 		if turn != 0:
@@ -103,9 +101,8 @@ func _physics_process(delta: float) -> void:
 
 func entered_orbit(planet: Planet) -> void:
 	host_planet = planet
-	print("entered orbit of ", planet.type)
+	orbit_entered.emit(host_planet)
 	
-
 func exited_orbit() -> void:
 	host_planet = null
-	print("exited orbit")
+	orbit_exited.emit()

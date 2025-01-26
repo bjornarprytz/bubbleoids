@@ -83,10 +83,12 @@ func _on_gravity_well_body_entered(body: Node2D) -> void:
 func _on_negate_gravity_body_exited(body: Node2D) -> void:
 	if (body is Player):
 		Symphony.unmuffle()
+		body.atmosphere_exited.emit()
 
 func _on_negate_gravity_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		_pop_bubble()
+		body.atmosphere_entered.emit(self)
 
 func _on_orbit_body_entered(body: Node2D) -> void:
 	if (body is Player):

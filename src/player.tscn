@@ -21,15 +21,16 @@ script = ExtResource("1_onrkg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 1)
 texture = ExtResource("2_onrkg")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0.000179291)
+position = Vector2(0, 0.000179291)
 shape = SubResource("CapsuleShape2D_i3pqv")
 
 [node name="Exhaust" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 16)
+position = Vector2(0, 17)
 emitting = false
 texture = ExtResource("3_i3pqv")
 particle_flag_align_y = true
@@ -66,5 +67,6 @@ hue_variation_curve = SubResource("Curve_onrkg")
 
 [node name="Trace" type="Line2D" parent="."]
 unique_name_in_owner = true
+visible = false
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 width = 1.0

@@ -61,16 +61,20 @@ func _ready() -> void:
 	type = texture.get_path().get_file().get_basename()
 	id = randf_range(0, 1)
 	
+	if (type in Events.discovered):
+		_pop_bubble(true)
+	
 
 func set_size(s: float):
 	size = s
 	scale = Vector2(s, s)
 	#gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
 
-func _pop_bubble():
+func _pop_bubble(silent: bool = false):
 	if bubble_popped:
 		return
-	bubble_pop.play(0.32)
+	if (!silent):
+		bubble_pop.play(0.32)
 	bubble_popped = true
 	Symphony.beat.connect(_on_beat)
 	bubble.hide()

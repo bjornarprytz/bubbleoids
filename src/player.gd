@@ -50,16 +50,16 @@ func get_gravity_at(delta: float, position: Vector2) -> Vector2:
 		var planet = nearby_planets[i]
 		var vec = planet.global_position - self.global_position
 		var dir = vec.normalized()
-		var r = vec.length()/1000+0.2 
+		var r = vec.length() / 1000 + 0.2
 		if r < nearest_planet_r and r < 1:
 			nearest_planet_r = r
-		if r<0.4:
-			r = r -(r-0.4)*0.7
-		if r>1:
-			r = r**2
+		if r < 0.4:
+			r = r - (r - 0.4) * 0.7
+		if r > 1:
+			r = r ** 2
 		#print(i, " ", len(nearby_planets), " ", planet.id, " ", r)
 		var fudge: float = 0.4;
-		gravity += 150.0 * delta * dir * planet.size / (r**2+fudge)
+		gravity += 150.0 * delta * dir * planet.size / (r ** 2 + fudge)
 		#print("applied", 1/(r**2.0)*2_000_000*delta)
 		#print("applied", speed * delta)
 	return gravity
@@ -74,32 +74,32 @@ func _physics_process(delta: float) -> void:
 	var p = Vector2(0, 0)
 	var v = -transform.basis_xform_inv(linear_velocity)
 	for i in range(len(trace.points)):
-		p += -v*delta
+		p += -v * delta
 		var g = get_gravity_at(delta, global_position + transform.basis_xform(v))
 		v += -transform.basis_xform_inv(g)
 		trace.points[i] = p
 
 	if host_planet:
 		# Lerp rotation to face away from the planet
-		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI /2) , 0.1)
+		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI / 2), 0.1)
 
 		if throttle:
-			apply_central_impulse(4*Vector2.UP.rotated(rotation) * speed * delta)
+			apply_central_impulse(4 * Vector2.UP.rotated(rotation) * speed * delta)
 		else:
 			# Apply a dampening force
 			var radial_dir = (host_planet.global_position - global_position).normalized()
 			# Apply dampening force in radial direction
 			apply_central_impulse(-1.0 * radial_dir * linear_velocity.dot(radial_dir) * delta)
 			# Apply a dampening force in the azimuthal direction 
-			var distance = (host_planet.global_position - global_position).length()/100
+			var distance = (host_planet.global_position - global_position).length() / 100
 			var azimuthal_dir = Vector2(radial_dir[1], radial_dir[0])
 			if azimuthal_dir.dot(linear_velocity) < 0:
 				azimuthal_dir = -azimuthal_dir
-			var target_azimuth_speed = 125.0/distance**2
+			var target_azimuth_speed = 125.0 / distance ** 2
 			var overshoot = (linear_velocity.dot(azimuthal_dir) - target_azimuth_speed) / target_azimuth_speed
 			#if overshoot > 0:
 			#	apply_central_impulse( - 100 * overshoot * azimuthal_dir * delta)
-			print(linear_velocity.dot(radial_dir) * delta, " ", 100 * overshoot * delta)
+			#print(linear_velocity.dot(radial_dir) * delta, " ", 100 * overshoot * delta)
 			if linear_velocity.length() > 100.0:
 				burn.emitting = true
 		if (turn != 0):
@@ -120,9 +120,9 @@ func _physics_process(delta: float) -> void:
 		if throttle:
 			apply_central_impulse(Vector2.UP.rotated(rotation) * speed * delta)
 	
-	var target_speed  = 150
+	var target_speed = 150
 	if linear_velocity.length() > target_speed:
-		apply_central_impulse(-1 * linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
+		apply_central_impulse(-1 * linear_velocity.normalized() * (linear_velocity.length() - target_speed) / target_speed)
 
 func entered_orbit(planet: Planet) -> void:
 	host_planet = planet

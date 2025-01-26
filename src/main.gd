@@ -7,8 +7,6 @@ extends Node2D
 @onready var fade_out: ColorRect = %FadeOut
 @onready var tutorial: PanelContainer = %Tutorial
 
-
-
 func _ready() -> void:
 	Events.discovered = []
 	Events.game_over.connect(_on_game_over)

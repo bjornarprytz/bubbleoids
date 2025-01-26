@@ -9,7 +9,7 @@ signal orbit_exited
 
 @export var speed: float = 150.0
 @export var rotation_speed: float = 3.0 # Lowered for smoother rotation
-@export var strafe_speed = 200.0
+@export var strafe_speed = 150.0
 
 @onready var exhaust: CPUParticles2D = %Exhaust
 @onready var burn: CPUParticles2D = %Burn
@@ -49,7 +49,7 @@ func get_gravity_at(delta: float, position: Vector2) -> Vector2:
 			r = r**2
 		#print(i, " ", len(nearby_planets), " ", planet.id, " ", r)
 		var fudge: float = 0.4;
-		gravity += 150.0 * delta * dir * planet.size**2 / (r**2+fudge)
+		gravity += 150.0 * delta * dir * planet.size / (r**2+fudge)
 		#print("applied", 1/(r**2.0)*2_000_000*delta)
 		#print("applied", speed * delta)
 	return gravity
@@ -74,30 +74,47 @@ func _physics_process(delta: float) -> void:
 		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI /2) , 0.1)
 
 		if throttle:
-			apply_central_impulse(Vector2.UP.rotated(rotation) * speed * delta)
+			apply_central_impulse(2*Vector2.UP.rotated(rotation) * speed * delta)
 		else:
 			# Apply a dampening force
-			apply_central_impulse(-2.0*linear_velocity * delta)
+			var radial_dir = (host_planet.global_position - global_position).normalized()
+			# Apply dampening force in radial direction
+			apply_central_impulse(-1.0 * radial_dir * linear_velocity.dot(radial_dir) * delta)
+			# Apply a dampening force in the azimuthal direction 
+			var distance = (host_planet.global_position - global_position).length()/100
+			var azimuthal_dir = Vector2(radial_dir[1], radial_dir[0])
+			if azimuthal_dir.dot(linear_velocity) < 0:
+				azimuthal_dir = -azimuthal_dir
+			var target_azimuth_speed = 125.0/distance**2
+			var overshoot = (linear_velocity.dot(azimuthal_dir) - target_azimuth_speed) / target_azimuth_speed
+			#if overshoot > 0:
+			#	apply_central_impulse( - 100 * overshoot * azimuthal_dir * delta)
+			print(linear_velocity.dot(radial_dir) * delta, " ", 100 * overshoot * delta)
 			if linear_velocity.length() > 100.0:
 				burn.emitting = true
 		if (turn != 0):
 			# Apply sideways strafe
-			var strafe = Vector2.RIGHT.rotated(rotation) * delta * turn * strafe_speed
+			var strafe = 2 * Vector2.RIGHT.rotated(rotation) * delta * turn * strafe_speed
 			apply_central_impulse(strafe)
 	else:
+		rotation = lerp_angle(rotation, linear_velocity.angle() + (PI / 2), 0.1)
+
 		# Rotate based on input
-		if turn != 0:
-			angular_velocity = turn * rotation_speed # Better handling than manual rotate()
-		else:
-			angular_velocity = 0 # Stop spinning when no input
+		var strafe = Vector2.RIGHT.rotated(rotation) * delta * turn * strafe_speed
+		apply_central_impulse(2 * strafe)
+
+		#if turn != 0:
+		#	angular_velocity = turn * rotation_speed # Better handling than manual rotate()
+		#else:
+		#	angular_velocity = 0 # Stop spinning when no input
 		
 		# Apply thrust
 		if throttle:
 			apply_central_impulse(Vector2.UP.rotated(rotation) * speed * delta)
 	
-	var target_speed  = 200
+	var target_speed  = 150
 	if linear_velocity.length() > target_speed:
-		apply_central_impulse(-0.25*linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
+		apply_central_impulse(-1 * linear_velocity.normalized()*(linear_velocity.length()-target_speed)/target_speed)
 
 func entered_orbit(planet: Planet) -> void:
 	host_planet = planet

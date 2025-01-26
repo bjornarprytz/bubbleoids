@@ -29,6 +29,7 @@ texture = ExtResource("2_6dclb")
 
 [node name="Controls" type="TextureRect" parent="."]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 540.0

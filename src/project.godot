@@ -13,7 +13,7 @@ config_version=5
 config/name="soundship"
 run/main_scene="uid://bi8uuojij5yv4"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cvwqhr20r4c75"
 
 [autoload]
 

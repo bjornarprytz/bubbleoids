@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 		rotation = lerp_angle(rotation, (host_planet.global_position - global_position).angle() - (PI /2) , 0.1)
 
 		if throttle:
-			apply_central_impulse(2*Vector2.UP.rotated(rotation) * speed * delta)
+			apply_central_impulse(4*Vector2.UP.rotated(rotation) * speed * delta)
 		else:
 			# Apply a dampening force
 			var radial_dir = (host_planet.global_position - global_position).normalized()

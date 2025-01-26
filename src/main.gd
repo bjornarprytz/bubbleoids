@@ -52,3 +52,33 @@ func _on_atmosphere_entered(planet: Planet):
 
 func _update_goal():
 	goal.text = "%s / %s" % [Events.discovered.size(), Events.goal]
+	if Events.discovered.size() == 1:
+		%Note15.visible = true
+	if Events.discovered.size() == 2:
+		%Note14.visible = true
+	if Events.discovered.size() == 3:
+		%Note13.visible = true
+	if Events.discovered.size() == 4:
+		%Note12.visible = true
+	if Events.discovered.size() == 5:
+		%Note11.visible = true
+	if Events.discovered.size() == 6:
+		%Note10.visible = true
+	if Events.discovered.size() == 7:
+		%Note9.visible = true
+	if Events.discovered.size() == 8:
+		%Note8.visible = true
+	if Events.discovered.size() == 9:
+		%Note7.visible = true
+	if Events.discovered.size() == 10:
+		%Note6.visible = true
+	if Events.discovered.size() == 11:
+		%Note5.visible = true
+	if Events.discovered.size() == 12:
+		%Note4.visible = true
+	if Events.discovered.size() == 13:
+		%Note3.visible = true
+	if Events.discovered.size() == 14:
+		%Note2.visible = true
+	if Events.discovered.size() == 15:
+		%Note1.visible = true

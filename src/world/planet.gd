@@ -61,9 +61,17 @@ func _ready() -> void:
 	type = texture.get_path().get_file().get_basename()
 	id = randf_range(0, 1)
 	
+	Events.planet_discovered.connect(_on_planet_discovered)
+	
 	if (type in Events.discovered):
 		_pop_bubble(true)
+
+func _on_planet_discovered(planet: Planet):
+	if planet == self:
+		return
 	
+	if (planet.type == type):
+		_pop_bubble()
 
 func set_size(s: float):
 	size = s

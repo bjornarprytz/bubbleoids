@@ -153,7 +153,7 @@ layout_mode = 2
 unique_name_in_owner = true
 visible = false
 position = Vector2(642, 359)
-scale = Vector2(0.342387, 0.342387)
+scale = Vector2(0.968, 0.968)
 texture = ExtResource("8_h30m1")
 
 [node name="Thanks" type="AudioStreamPlayer" parent="."]

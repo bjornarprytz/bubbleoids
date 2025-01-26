@@ -6,9 +6,10 @@ extends Node2D
 @onready var controls: RichTextLabel = %Controls
 @onready var fade_out: ColorRect = %FadeOut
 
-var discovered: Array[String] = []
+
 
 func _ready() -> void:
+	Events.discovered = []
 	Events.game_over.connect(_on_game_over)
 	player.atmosphere_entered.connect(_on_atmosphere_entered)
 	player.orbit_entered.connect(_on_orbit_entered)
@@ -34,15 +35,15 @@ func _on_orbit_entered(_planet: Planet):
 	controls.text = "Autopilot: active"
 
 func _on_atmosphere_entered(planet: Planet):
-	if planet.type in discovered:
+	if planet.type in Events.discovered:
 		return
 
-	discovered.push_back(planet.type)
+	Events.discovered.push_back(planet.type)
 	Symphony.add_instrument()
 	_update_goal()
 
-	if (discovered.size() >= Events.goal):
+	if (Events.discovered.size() >= Events.goal):
 		Events.game_over.emit(true)
 
 func _update_goal():
-	goal.text = "%s / %s" % [discovered.size(), Events.goal]
+	goal.text = "%s / %s" % [Events.discovered.size(), Events.goal]

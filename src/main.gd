@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 func _on_game_over(win: bool):
 	var tween = create_tween()
-	tween.tween_property(canvas_modulate, "modulate", Color.BLACK, 2.69)
+	tween.tween_property(canvas_modulate, "modulate", Color.BLACK, 5.69)
 	await tween.finished
 	get_tree().change_scene_to_file("res://credits.tscn")
 

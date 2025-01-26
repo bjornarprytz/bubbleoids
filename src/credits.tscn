@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cumrtt81540lc"]
+[gd_scene load_steps=10 format=3 uid="uid://cumrtt81540lc"]
 
 [ext_resource type="Script" uid="uid://d04rxd36i0y5i" path="res://credits.gd" id="1_g4wvt"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="1_nm7lk"]
 [ext_resource type="Texture2D" uid="uid://lr3ynrrvt7xr" path="res://assets/img/stary sky3.png" id="2_4av4j"]
 [ext_resource type="Texture2D" uid="uid://diolv3fd5mnk8" path="res://assets/img/planets/RAMS GREEN RED.png" id="2_c1t8d"]
+[ext_resource type="Texture2D" uid="uid://cswak7n47yk2o" path="res://assets/img/Soundship Pop odyssey (2).png" id="3_3mii5"]
 [ext_resource type="Texture2D" uid="uid://nr7v05x5bf5y" path="res://assets/Tvibit.png" id="4_j6beo"]
 [ext_resource type="Texture2D" uid="uid://ccfksvystlo6o" path="res://assets/UiT_Segl_Eng_Hvit_960px.png" id="5_4av4j"]
 [ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="7_5em78"]
@@ -50,21 +51,17 @@ vertical_scroll_mode = 3
 layout_mode = 2
 
 [node name="Control2" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 400)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
 layout_mode = 2
-
-[node name="1" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits/CenterContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "Soundship: Pop Odyssey"
-fit_content = true
-autowrap_mode = 0
+texture = ExtResource("3_3mii5")
+expand_mode = 4
+stretch_mode = 6
 
 [node name="Control" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 600)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="Bubble" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
@@ -91,7 +88,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="Control4" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="Planet" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
@@ -100,7 +97,7 @@ texture = ExtResource("2_c1t8d")
 expand_mode = 4
 
 [node name="Control5" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="3" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits"]

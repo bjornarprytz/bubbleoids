@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgnyr8u66lols"]
+[gd_scene load_steps=4 format=3 uid="uid://bgnyr8u66lols"]
 
-[ext_resource type="Texture2D" uid="uid://cd18tjlhpktwt" path="res://assets/Splash screen logo.png" id="1_d63u8"]
+[ext_resource type="Script" uid="uid://c6ik408fneeku" path="res://game_splash.gd" id="1_6dclb"]
+[ext_resource type="Texture2D" uid="uid://dpr7cvihuhuvi" path="res://assets/img/Soundship Pop odyssey (1).png" id="1_ck1vk"]
+[ext_resource type="Texture2D" uid="uid://cswak7n47yk2o" path="res://assets/img/Soundship Pop odyssey (2).png" id="2_6dclb"]
 
 [node name="GameSplash" type="Control"]
 layout_mode = 3
@@ -9,25 +11,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6dclb")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ck1vk")
+centered = false
 
-[node name="Target" type="Node2D" parent="."]
-position = Vector2(640, 400)
-
-[node name="Logo" type="Sprite2D" parent="Target"]
+[node name="Logo" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(0, 624)
-scale = Vector2(0.281481, 0.281481)
-texture = ExtResource("1_d63u8")
-
-[node name="Audio" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
+position = Vector2(640, 360)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_6dclb")

@@ -5,7 +5,12 @@ signal beat(number: int)
 var order: Array[String] = []
 var _streamPlayers: Dictionary[String, AudioStreamPlayer] = {}
 
+@onready var main: AudioStreamPlayer = %Main
+
+
 const tempo: int = 102
+
+const intro = preload("res://assets/audio/SoundshipSPACE_.wav")
 
 var instruments: Array[AudioStream] = [
 	preload("res://assets/audio/symphony/Soundship01.wav"),
@@ -49,6 +54,11 @@ func unmuffle():
 	for player in _streamPlayers.values():
 		player.set_bus("Master")
 
+func start_intro():
+	main.volume_db = 0.0
+	main.stream = intro
+	main.play()
+
 # Make sure it stays in sync
 func _restart_beat():
 	time_counter = 0.0
@@ -59,6 +69,10 @@ func full_ensemble():
 		add_instrument()
 
 func add_instrument():
+	if (main.playing):
+		var tween = create_tween()
+		tween.tween_property(main, "volume_db", -80.0, 1.69)
+		tween.tween_callback(main.stop)
 	if (instruments.size() == 0):
 		print("Found all instruments already")
 		return

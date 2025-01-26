@@ -3,12 +3,15 @@ extends Node2D
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var logo: Sprite2D = %Logo
 
+var start_scroll = false
+
 func _ready() -> void:
 	Symphony.full_ensemble()
 	Symphony.beat.connect(_on_beat)
 
 func _on_beat(number: int) -> void:
 	if (number % 4 == 0):
+		start_scroll = true
 		if (!Symphony.pop_instrument()):
 			logo.show()
 			logo.modulate.a = 0.0
@@ -17,4 +20,5 @@ func _on_beat(number: int) -> void:
 			tween.tween_property(logo, "modulate:a", 1.0, 1.69)
 
 func _physics_process(_delta: float) -> void:
-	scroll_container.set_deferred("scroll_vertical", scroll_container.scroll_vertical + 2)
+	if (start_scroll):
+		scroll_container.set_deferred("scroll_vertical", scroll_container.scroll_vertical + 2)

@@ -4,14 +4,6 @@ game on itch.io: [link](https://thewarlock.itch.io/soundship)
 
 ## TODO
 
-- Add new planets
-- Audio
-  - Space sound
-  - Bubble pop
-
-- Screens
-  - game name
-
 - Maintain planet state (when re-scrolling a sector)
 
 - UI

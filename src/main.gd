@@ -31,7 +31,7 @@ func _on_orbit_exited():
 	
 func _on_orbit_entered(_planet: Planet):
 	state.text = "IN ORBIT"
-	controls.text = "Strafe: active"
+	controls.text = "Autopilot: active"
 
 func _on_atmosphere_entered(planet: Planet):
 	if planet.type in discovered:

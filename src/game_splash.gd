@@ -11,9 +11,6 @@ func _ready() -> void:
 	
 	await tween.finished
 	controls.visible = true
-	await get_tree().create_timer(3.0).timeout
-	
-	_next_scene()
 
 
 func _input(event: InputEvent) -> void:

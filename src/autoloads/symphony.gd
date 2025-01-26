@@ -44,16 +44,6 @@ func _process(delta: float) -> void:
 		beat_number += 1
 		beat.emit(beat_number)
 
-func muffle():
-	print("Muffle disabled due to poor web performance")
-	return
-	for player in _streamPlayers.values():
-		player.set_bus("Muffle")
-func unmuffle():
-	return
-	for player in _streamPlayers.values():
-		player.set_bus("Master")
-
 func start_intro():
 	main.volume_db = 0.0
 	main.stream = intro
@@ -98,6 +88,11 @@ func add_instrument():
 		
 	player.stream = instrument
 	player.play(current_playback_position)
+	
+	print ("New instrument")
+	for track in _streamPlayers.values():
+		print ("PB_POS: [%f.00]" % track.get_playback_position())
+		
 
 func pop_instrument() -> bool:
 	if (order.size() == 0):

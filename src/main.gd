@@ -5,6 +5,7 @@ extends Node2D
 @onready var state: RichTextLabel = %State
 @onready var controls: RichTextLabel = %Controls
 @onready var fade_out: ColorRect = %FadeOut
+@onready var tutorial: PanelContainer = %Tutorial
 
 
 
@@ -41,6 +42,12 @@ func _on_atmosphere_entered(planet: Planet):
 	Events.discovered.push_back(planet.type)
 	Symphony.add_instrument()
 	_update_goal()
+	
+	if (Events.discovered.size() > 2):
+		# Assume mastery
+		var tween = create_tween()
+		tween.tween_property(tutorial, "modulate:a", 0.0, 0.69)
+		tween.tween_callback(tutorial.hide)
 
 	if (Events.discovered.size() >= Events.goal):
 		Events.game_over.emit(true)

@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://5cnrtekvl5cg" path="res://assets/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf" id="2_lquwl"]
 [ext_resource type="Texture2D" uid="uid://b08hdprowquq1" path="res://assets/img/arrow_keys.png" id="3_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ckdwmqvdejpff" path="res://world/infinite_sectors.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://co2wfliw6xu0p" path="res://assets/img/note_4.png" id="4_7mycd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lquwl"]
 
@@ -185,9 +186,6 @@ text = "Autopilot: off"
 fit_content = true
 autowrap_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Terminal/VBoxContainer"]
-layout_mode = 2
-
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 texture_filter = 2
 layout_mode = 1
@@ -237,3 +235,42 @@ unique_name_in_owner = true
 
 [node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]
 position = Vector2(-1000, -1000)
+
+[node name="GoalTutorial" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+texture_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -749.0
+offset_top = 547.0
+offset_right = -628.0
+offset_bottom = 606.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GoalTutorial"]
+layout_mode = 2
+
+[node name="Bubble" type="TextureRect" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_1bvp3")
+expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+
+[node name="Controls" type="RichTextLabel" parent="GoalTutorial/HBoxContainer/CenterContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+
+[node name="Note" type="TextureRect" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_7mycd")
+expand_mode = 2

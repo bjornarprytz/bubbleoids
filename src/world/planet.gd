@@ -100,7 +100,7 @@ func _on_gravity_well_body_exited(body: Node2D) -> void:
 func _on_gravity_well_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		body.nearby_planets.push_back(self)
-		print("entered")
+		#print("entered")
 		#sprite.visible = false
 		#%Player.nearby_planets.
 

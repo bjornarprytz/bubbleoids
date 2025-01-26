@@ -1,6 +1,7 @@
 extends Control
 
 @onready var logo: Sprite2D = %Logo
+@onready var controls: TextureRect = %Controls
 
 
 func _ready() -> void:
@@ -9,7 +10,7 @@ func _ready() -> void:
 	tween.tween_property(logo, "scale", Vector2.ONE, 2.0)
 	
 	await tween.finished
-	
+	controls.visible = true
 	await get_tree().create_timer(3.0).timeout
 	
 	_next_scene()

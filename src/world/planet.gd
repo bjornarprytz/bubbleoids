@@ -11,25 +11,38 @@ extends Node2D
 @onready var pop: CPUParticles2D = %Pop
 @onready var orbit: Area2D = %Orbit
 @onready var orbit_shape: CollisionShape2D = $Orbit/Shape
+@onready var bubble_pop: AudioStreamPlayer2D = %BubblePop
 
 var planet_sprites = [
-	preload("res://assets/img/planets/Brown RAMS.png"),
-	preload("res://assets/img/planets/greengray moon.png"),
-	preload("res://assets/img/planets/MARS 1.png"),
-	preload("res://assets/img/planets/MARS 2.png"),
-	preload("res://assets/img/planets/MARS 3.png"),
-	preload("res://assets/img/planets/OG moon.png"),
-	preload("res://assets/img/planets/pink purple moon.png"),
-	preload("res://assets/img/planets/pixil-frame-0 (16).png"),
-	preload("res://assets/img/planets/PURPLE ARRET.png"),
-	preload("res://assets/img/planets/Purple RAMS.png"),
-	preload("res://assets/img/planets/RAMS BLUE CYAN PURPLE.png"),
-	preload("res://assets/img/planets/RAMS GREEN RED.png"),
-	preload("res://assets/img/planets/RAMS Purple.png"),
-	preload("res://assets/img/planets/RED RAMS.png"),
-	preload("res://assets/img/planets/TERRA 2.png"),
-	preload("res://assets/img/planets/TERRA.png"),
-	preload("res://assets/img/planets/WEIRD ARRET.png")
+preload("res://assets/img/planets/beige, brown greenish asteroid.png"),
+preload("res://assets/img/planets/blue and blue rings.png"),
+preload("res://assets/img/planets/blue moon.png"),
+preload("res://assets/img/planets/blue red astroid.png"),
+preload("res://assets/img/planets/blue white astroid.png"),
+preload("res://assets/img/planets/Blueplanet orange belt.png"),
+preload("res://assets/img/planets/Brown RAMS.png"),
+preload("res://assets/img/planets/colores rings.png"),
+preload("res://assets/img/planets/cyan purple astroid.png"),
+preload("res://assets/img/planets/green rings.png"),
+preload("res://assets/img/planets/greengray moon.png"),
+preload("res://assets/img/planets/MARS 3.png"),
+preload("res://assets/img/planets/OG asteroud.png"),
+preload("res://assets/img/planets/OG moon.png"),
+preload("res://assets/img/planets/pink purple moon.png"),
+preload("res://assets/img/planets/pixil-frame-0 (9).png"),
+preload("res://assets/img/planets/pixil-frame-0 (16).png"),
+preload("res://assets/img/planets/PURPLE ARRET.png"),
+preload("res://assets/img/planets/Purple RAMS.png"),
+preload("res://assets/img/planets/purple rings .png"),
+preload("res://assets/img/planets/RAMS BLUE CYAN PURPLE.png"),
+preload("res://assets/img/planets/RAMS GREEN RED.png"),
+preload("res://assets/img/planets/RAMS Purple.png"),
+preload("res://assets/img/planets/RED RAMS.png"),
+preload("res://assets/img/planets/SATURN.png"),
+preload("res://assets/img/planets/TERRA.png"),
+preload("res://assets/img/planets/WEIRD ARRET.png"),
+preload("res://assets/img/planets/weird colors astroid.png"),
+preload("res://assets/img/planets/weird.png"),
 ]
 
 var size: float = 1.0
@@ -56,6 +69,7 @@ func set_size(s: float):
 func _pop_bubble():
 	if bubble_popped:
 		return
+	bubble_pop.play(0.32)
 	bubble_popped = true
 	Symphony.beat.connect(_on_beat)
 	bubble.hide()

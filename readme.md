@@ -4,18 +4,17 @@ game on itch.io: [link](https://thewarlock.itch.io/soundship)
 
 ## TODO
 
+- Add new planets
+- Audio
+  - Space sound
+  - Bubble pop
+
 - Screens
   - game name
 
 - Maintain planet state (when re-scrolling a sector)
 
-- Two control modes
-  - Free roam
-  - In orbit
-
 - UI
-  - Move to screen space
-  - Goal tracker
   - indicate which planets are undiscovered
 
 ### Bugs

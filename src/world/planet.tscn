@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8v5nh4qd750n"]
+[gd_scene load_steps=11 format=3 uid="uid://c8v5nh4qd750n"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
 [ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
-[ext_resource type="Texture2D" uid="uid://b7qbaefjmvtvp" path="res://assets/img/planets/Brown RAMS.png" id="3_01u2o"]
+[ext_resource type="Texture2D" uid="uid://b51jx3x78b2xh" path="res://assets/img/planets/blue moon.png" id="3_wuflm"]
 [ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
 [ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
+[ext_resource type="AudioStream" uid="uid://biur3y0ycnjse" path="res://assets/audio/Bubblepop.wav" id="7_wuflm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
 radius = 1800.0
@@ -48,7 +49,7 @@ polygon = PackedVector2Array(100, 0, 98.7688, 15.6434, 95.1057, 30.9017, 89.1007
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("3_01u2o")
+texture = ExtResource("3_wuflm")
 
 [node name="Glow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
@@ -93,6 +94,10 @@ scale_amount_max = 0.2
 
 [node name="Shape" type="CollisionShape2D" parent="Atmosphere"]
 shape = SubResource("CircleShape2D_qpsm4")
+
+[node name="BubblePop" type="AudioStreamPlayer2D" parent="Atmosphere"]
+unique_name_in_owner = true
+stream = ExtResource("7_wuflm")
 
 [node name="Orbit" type="Area2D" parent="."]
 unique_name_in_owner = true

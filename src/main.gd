@@ -21,7 +21,7 @@ func _on_game_over(win: bool):
 	var tween = create_tween()
 	fade_out.show()
 	fade_out.modulate.a = 0.0
-	tween.tween_property(fade_out, "modulate:a", 1.0, 5.69)
+	tween.tween_property(fade_out, "modulate:a", 1.0, 7.69)
 	await tween.finished
 	get_tree().change_scene_to_file("res://credits.tscn")
 

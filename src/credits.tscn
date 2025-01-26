@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cumrtt81540lc"]
+[gd_scene load_steps=11 format=3 uid="uid://cumrtt81540lc"]
 
 [ext_resource type="Script" uid="uid://d04rxd36i0y5i" path="res://credits.gd" id="1_g4wvt"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="1_nm7lk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ccfksvystlo6o" path="res://assets/UiT_Segl_Eng_Hvit_960px.png" id="5_4av4j"]
 [ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="7_5em78"]
 [ext_resource type="Texture2D" uid="uid://cd18tjlhpktwt" path="res://assets/Splash screen logo.png" id="8_h30m1"]
+[ext_resource type="AudioStream" uid="uid://cg54b2vduki1k" path="res://assets/audio/Thank you for playing 5.wav" id="10_r4875"]
 
 [node name="Credits" type="Node2D"]
 script = ExtResource("1_g4wvt")
@@ -154,3 +155,7 @@ visible = false
 position = Vector2(642, 359)
 scale = Vector2(0.342387, 0.342387)
 texture = ExtResource("8_h30m1")
+
+[node name="Thanks" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_r4875")

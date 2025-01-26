@@ -12,6 +12,7 @@ extends Node2D
 @onready var orbit: Area2D = %Orbit
 @onready var orbit_shape: CollisionShape2D = $Orbit/Shape
 @onready var bubble_pop: AudioStreamPlayer2D = %BubblePop
+@onready var shape: CollisionPolygon2D = $Body/Shape
 
 var planet_sprites = [
 preload("res://assets/img/planets/beige, brown greenish asteroid.png"),
@@ -79,7 +80,12 @@ func _on_beat(_number: int):
 	var tween = create_tween()
 	poulace.emitting = true
 	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
+	tween.set_parallel()
+	tween.tween_property(shape, "scale", Vector2.ONE * 1.1, .069)
+	tween.set_parallel(false)
 	tween.tween_property(sprite, "scale", Vector2.ONE, .169)
+	tween.set_parallel()
+	tween.tween_property(shape, "scale", Vector2.ONE, .169)
 
 func _on_gravity_well_body_exited(body: Node2D) -> void:
 	if (body is Player):

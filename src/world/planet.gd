@@ -52,79 +52,78 @@ var type: String
 var id: float = 0
 
 var radius: float:
-	get:
-		return orbit_shape.shape.radius * size
+    get:
+        return orbit_shape.shape.radius * size
 
 func _ready() -> void:
-	var texture = planet_sprites.pick_random()
-	sprite.texture = texture
-	type = texture.get_path().get_file().get_basename()
-	id = randf_range(0, 1)
-	
-	Events.planet_discovered.connect(_on_planet_discovered)
-	
-	if (type in Events.discovered):
-		_pop_bubble(true)
+    var texture = planet_sprites.pick_random()
+    sprite.texture = texture
+    type = texture.get_path().get_file().get_basename()
+    id = randf_range(0, 1)
+    
+    Events.planet_discovered.connect(_on_planet_discovered)
+    
+    if (type in Events.discovered):
+        _pop_bubble(true)
 
 func _on_planet_discovered(planet: Planet):
-	if planet == self:
-		return
-	
-	if (planet.type == type):
-		_pop_bubble()
+    if planet == self:
+        return
+    
+    if (planet.type == type):
+        _pop_bubble()
 
 func set_size(s: float):
-	size = s
-	scale = Vector2(s, s)
-	#gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
+    size = s
+    scale = Vector2(s, s)
+    #gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
 
 func _pop_bubble(silent: bool = false):
-	if bubble_popped:
-		return
-	if (!silent):
-		bubble_pop.play(0.32)
-	bubble_popped = true
-	Symphony.beat.connect(_on_beat)
-	bubble.hide()
-	pop.emitting = true
+    if bubble_popped:
+        return
+    if (!silent):
+        bubble_pop.play(0.32)
+    bubble_popped = true
+    Symphony.beat.connect(_on_beat)
+    bubble.hide()
+    pop.emitting = true
 
 func _on_beat(_number: int):
-	var tween = create_tween()
-	poulace.emitting = true
-	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
-	tween.set_parallel()
-	tween.tween_property(shape, "scale", Vector2.ONE * 1.1, .069)
-	tween.set_parallel(false)
-	tween.tween_property(sprite, "scale", Vector2.ONE, .169)
-	tween.set_parallel()
-	tween.tween_property(shape, "scale", Vector2.ONE, .169)
+    var tween = create_tween()
+    poulace.emitting = true
+    tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
+    tween.set_parallel()
+    tween.tween_property(shape, "scale", Vector2.ONE * 1.1, .069)
+    tween.set_parallel(false)
+    tween.tween_property(sprite, "scale", Vector2.ONE, .169)
+    tween.set_parallel()
+    tween.tween_property(shape, "scale", Vector2.ONE, .169)
 
 func _on_gravity_well_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		body.nearby_planets.erase(self)
-		#sprite.visible = true
-		print("exited")
+    if (body is Player):
+        body.nearby_planets.erase(self)
+        #sprite.visible = true
 
 func _on_gravity_well_body_entered(body: Node2D) -> void:
-	if (body is Player):
-		body.nearby_planets.push_back(self)
-		#print("entered")
-		#sprite.visible = false
-		#%Player.nearby_planets.
+    if (body is Player):
+        body.nearby_planets.push_back(self)
+        #print("entered")
+        #sprite.visible = false
+        #%Player.nearby_planets.
 
 func _on_negate_gravity_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		body.atmosphere_exited.emit()
+    if (body is Player):
+        body.atmosphere_exited.emit()
 
 func _on_negate_gravity_body_entered(body: Node2D) -> void:
-	if (body is Player):
-		_pop_bubble()
-		body.atmosphere_entered.emit(self)
+    if (body is Player):
+        _pop_bubble()
+        body.atmosphere_entered.emit(self)
 
 func _on_orbit_body_entered(body: Node2D) -> void:
-	if (body is Player):
-		body.entered_orbit(self)
+    if (body is Player):
+        body.entered_orbit(self)
 
 func _on_orbit_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		body.exited_orbit()
+    if (body is Player):
+        body.exited_orbit()

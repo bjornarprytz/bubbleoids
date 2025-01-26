@@ -7,10 +7,10 @@ var _streamPlayers: Dictionary[String, AudioStreamPlayer] = {}
 
 @onready var main: AudioStreamPlayer = %Main
 
-
 const tempo: int = 102
-
 const intro = preload("res://assets/audio/SoundshipSPACE_.wav")
+
+var maestro: AudioStreamPlayer
 
 var instruments: Array[AudioStream] = [
 	preload("res://assets/audio/symphony/Soundship01.wav"),
@@ -76,23 +76,25 @@ func add_instrument():
 		start_beat = true
 		time_counter = 0.0
 		player.finished.connect(_restart_beat)
-	player.finished.connect(player.play)
 	var instrument = instruments.pop_front() as AudioStream
 		
 	var key = instrument.resource_path
 	_streamPlayers[key] = player
 	order.push_back(key)
 	var current_playback_position: float = 0.0
-	if (_streamPlayers.size() > 0):
-		current_playback_position = _streamPlayers.values()[0].get_playback_position()
-		
+	if (maestro != null):
+		current_playback_position = maestro.get_playback_position()
+	else:
+		maestro = player
+	
 	player.stream = instrument
 	player.play(current_playback_position)
+	maestro.finished.connect(player.play.bind(0.0))
+		
 	
-	print ("New instrument")
+	print ("New instrument (%s)" % _streamPlayers.size())
 	for track in _streamPlayers.values():
 		print ("PB_POS: [%f.00]" % track.get_playback_position())
-		
 
 func pop_instrument() -> bool:
 	if (order.size() == 0):

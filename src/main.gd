@@ -40,6 +40,7 @@ func _on_atmosphere_entered(planet: Planet):
 	Events.discovered.push_back(planet.type)
 	Symphony.add_instrument()
 	_update_goal()
+	Events.planet_discovered.emit(planet)
 	
 	if (Events.discovered.size() > 2):
 		# Assume mastery

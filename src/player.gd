@@ -12,6 +12,8 @@ signal orbit_exited
 @export var strafe_speed = 150.0
 
 @onready var exhaust: CPUParticles2D = %Exhaust
+@onready var exhaust_left: CPUParticles2D = %ExhaustLeft
+@onready var exhaust_right: CPUParticles2D = %ExhaustRight
 @onready var burn: CPUParticles2D = %Burn
 @onready var trace: Line2D = %Trace
 
@@ -29,6 +31,14 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_released("throttle"):
 		throttle = false
 		exhaust.emitting = false
+	if event.is_action_pressed("ui_left"):
+		exhaust_left.emitting = true
+	if event.is_action_released("ui_left"):
+		exhaust_left.emitting = false
+	if event.is_action_pressed("ui_right"):
+		exhaust_right.emitting = true
+	if event.is_action_released("ui_right"):
+		exhaust_right.emitting = false
 
 	# Get rotation input (supports both keyboard and joystick)
 	turn = Input.get_axis("ui_left", "ui_right")
@@ -98,11 +108,9 @@ func _physics_process(delta: float) -> void:
 			apply_central_impulse(strafe)
 	else:
 		rotation = lerp_angle(rotation, linear_velocity.angle() + (PI / 2), 0.1)
-
 		# Rotate based on input
 		var strafe = Vector2.RIGHT.rotated(rotation) * delta * turn * strafe_speed
-		apply_central_impulse(2 * strafe)
-
+		apply_central_impulse(3 * strafe)
 		#if turn != 0:
 		#	angular_velocity = turn * rotation_speed # Better handling than manual rotate()
 		#else:

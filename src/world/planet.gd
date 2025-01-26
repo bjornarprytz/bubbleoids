@@ -4,11 +4,13 @@ extends Node2D
 @onready var gravity_well: Area2D = %GravityWell
 @onready var gravity_well_shape: CollisionShape2D = %GravityWell/Shape
 @onready var sprite: Sprite2D = %Sprite
-@onready var negate_gravity_shape: CollisionShape2D = %NegateGravity/Shape
+@onready var atmosphere_shape: CollisionShape2D = %Atmosphere/Shape
 @onready var poulace: CPUParticles2D = %Poulace
 @onready var debrids_belt: CPUParticles2D = %DebridsBelt
 @onready var bubble: Sprite2D = %Bubble
 @onready var pop: CPUParticles2D = %Pop
+@onready var orbit: Area2D = %Orbit
+@onready var orbit_shape: CollisionShape2D = $Orbit/Shape
 
 var planet_sprites = [
 	preload("res://assets/img/planets/Brown RAMS.png"),
@@ -37,7 +39,7 @@ var id: float = 0
 
 var radius: float:
 	get:
-		return gravity_well_shape.shape.radius * size * 0.15
+		return orbit_shape.shape.radius * size
 
 func _ready() -> void:
 	var texture = planet_sprites.pick_random()
@@ -49,7 +51,7 @@ func _ready() -> void:
 func set_size(s: float):
 	size = s
 	scale = Vector2(s, s)
-	#gravity_well.gravity_point_unit_distance = negate_gravity_shape.shape.radius * size
+	#gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
 
 func _pop_bubble():
 	if bubble_popped:
@@ -85,4 +87,11 @@ func _on_negate_gravity_body_exited(body: Node2D) -> void:
 func _on_negate_gravity_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		_pop_bubble()
-		body.discover(self)
+
+func _on_orbit_body_entered(body: Node2D) -> void:
+	if (body is Player):
+		body.entered_orbit(self)
+
+func _on_orbit_body_exited(body: Node2D) -> void:
+	if (body is Player):
+		body.exited_orbit()

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ptd6iy6d356e" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="2_onrkg"]
 [ext_resource type="Texture2D" uid="uid://cirbrxisj2q4p" path="res://assets/img/circle_hollow.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="4_hqtel"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
 radius = 7.0
@@ -10,12 +11,8 @@ height = 36.0
 
 [sub_resource type="Curve" id="Curve_onrkg"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.303371), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_i3pqv"]
-offsets = PackedFloat32Array(0.522059, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [node name="Player" type="RigidBody2D"]
 texture_filter = 1
@@ -24,75 +21,50 @@ script = ExtResource("1_onrkg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-rotation = 1.5708
 texture = ExtResource("2_onrkg")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0.000179291)
-rotation = 1.57079
 shape = SubResource("CapsuleShape2D_i3pqv")
 
 [node name="Exhaust" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-15, 0)
+position = Vector2(0, 16)
 emitting = false
 texture = ExtResource("3_i3pqv")
-local_coords = true
 particle_flag_align_y = true
-direction = Vector2(-1, 0)
+direction = Vector2(0, 1)
 spread = 20.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 50.0
-initial_velocity_max = 200.0
-scale_amount_min = 2.5
-scale_amount_max = 2.5
+initial_velocity_max = 150.0
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 hue_variation_curve = SubResource("Curve_onrkg")
 
-[node name="Hud" type="PanelContainer" parent="."]
+[node name="Burn" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(0, 0.803922, 0.478431, 1)
-z_index = 1
-offset_left = -46.0
-offset_top = -79.9998
-offset_right = 49.0
-offset_bottom = -27.9998
-rotation = 1.57079
-pivot_offset = Vector2(47, 81)
-
-[node name="CenterContainer" type="CenterContainer" parent="Hud"]
-layout_mode = 2
-
-[node name="Goal" type="RichTextLabel" parent="Hud/CenterContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-text = "10 / 15"
-fit_content = true
-autowrap_mode = 0
-
-[node name="projection" type="Line2D" parent="Hud"]
-points = PackedVector2Array(47, 67, 1, 0)
-width = 2.0
-gradient = SubResource("Gradient_i3pqv")
-
-[node name="projection2" type="Line2D" parent="Hud"]
-points = PackedVector2Array(47, 67, 2, 50)
-width = 2.0
-gradient = SubResource("Gradient_i3pqv")
-
-[node name="projection3" type="Line2D" parent="Hud"]
-points = PackedVector2Array(47, 67, 93, 3)
-width = 2.0
-gradient = SubResource("Gradient_i3pqv")
-
-[node name="projection4" type="Line2D" parent="Hud"]
-points = PackedVector2Array(47, 67, 93, 50)
-width = 2.0
-gradient = SubResource("Gradient_i3pqv")
+modulate = Color(1, 0.168627, 1, 1)
+position = Vector2(0, 12)
+emitting = false
+amount = 15
+texture = ExtResource("4_hqtel")
+lifetime = 0.3
+lifetime_randomness = 0.6
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_onrkg")
 
 [node name="Trace" type="Line2D" parent="."]
 unique_name_in_owner = true
-points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 width = 1.0

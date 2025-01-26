@@ -98,5 +98,6 @@ func pop_instrument() -> bool:
 	if (_streamPlayers.size() == 0):
 		start_beat = false
 		time_counter = 0.0
+		return false
 	
 	return true

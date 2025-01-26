@@ -28,7 +28,6 @@ func _ready() -> void:
 
 func _on_player_entered(sector: Sector, player: Player):
 	current_sector = sector
-	print("New current sector %s" % current_sector.coordinates)
 	_scroll_sectors()
 
 func _on_new_sector_entered_camera(sector: Sector) -> void:
@@ -36,7 +35,6 @@ func _on_new_sector_entered_camera(sector: Sector) -> void:
 
 func _on_sector_exited_camera(sector: Sector) -> void:
 	print("Sector exited: %s" % sector.name)
-
 
 func _scroll_sectors() -> void:
 	var current_coords = current_sector.coordinates

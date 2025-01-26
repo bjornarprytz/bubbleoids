@@ -53,10 +53,10 @@ texture = ExtResource("3_01u2o")
 [node name="Glow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
 texture_filter = 2
-scale = Vector2(4.5, 4.5)
+scale = Vector2(4.78125, 4.78125)
 texture = ExtResource("4_ijjmx")
 
-[node name="NegateGravity" type="Area2D" parent="."]
+[node name="Atmosphere" type="Area2D" parent="."]
 unique_name_in_owner = true
 priority = 1
 gravity_space_override = 3
@@ -65,12 +65,12 @@ gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
 gravity = 0.0
 
-[node name="Bubble" type="Sprite2D" parent="NegateGravity"]
+[node name="Bubble" type="Sprite2D" parent="Atmosphere"]
 unique_name_in_owner = true
 scale = Vector2(1.65, 1.65)
 texture = ExtResource("4_qpsm4")
 
-[node name="Pop" type="CPUParticles2D" parent="NegateGravity"]
+[node name="Pop" type="CPUParticles2D" parent="Atmosphere"]
 unique_name_in_owner = true
 position = Vector2(0, 31.8961)
 scale = Vector2(3.29568, 3.78876)
@@ -91,10 +91,11 @@ initial_velocity_max = 10.0
 scale_amount_min = 0.05
 scale_amount_max = 0.2
 
-[node name="Shape" type="CollisionShape2D" parent="NegateGravity"]
+[node name="Shape" type="CollisionShape2D" parent="Atmosphere"]
 shape = SubResource("CircleShape2D_qpsm4")
 
 [node name="Orbit" type="Area2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Shape" type="CollisionShape2D" parent="Orbit"]
 shape = SubResource("CircleShape2D_ijjmx")
@@ -136,5 +137,7 @@ damping_max = 50.0
 
 [connection signal="body_entered" from="GravityWell" to="." method="_on_gravity_well_body_entered"]
 [connection signal="body_exited" from="GravityWell" to="." method="_on_gravity_well_body_exited"]
-[connection signal="body_entered" from="NegateGravity" to="." method="_on_negate_gravity_body_entered"]
-[connection signal="body_exited" from="NegateGravity" to="." method="_on_negate_gravity_body_exited"]
+[connection signal="body_entered" from="Atmosphere" to="." method="_on_negate_gravity_body_entered"]
+[connection signal="body_exited" from="Atmosphere" to="." method="_on_negate_gravity_body_exited"]
+[connection signal="body_entered" from="Orbit" to="." method="_on_orbit_body_entered"]
+[connection signal="body_exited" from="Orbit" to="." method="_on_orbit_body_exited"]

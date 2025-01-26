@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cumrtt81540lc"]
+[gd_scene load_steps=9 format=3 uid="uid://cumrtt81540lc"]
 
 [ext_resource type="Script" uid="uid://d04rxd36i0y5i" path="res://credits.gd" id="1_g4wvt"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="1_nm7lk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://nr7v05x5bf5y" path="res://assets/Tvibit.png" id="4_j6beo"]
 [ext_resource type="Texture2D" uid="uid://ccfksvystlo6o" path="res://assets/UiT_Segl_Eng_Hvit_960px.png" id="5_4av4j"]
 [ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="7_5em78"]
+[ext_resource type="Texture2D" uid="uid://cd18tjlhpktwt" path="res://assets/Splash screen logo.png" id="8_h30m1"]
 
 [node name="Credits" type="Node2D"]
 script = ExtResource("1_g4wvt")
@@ -149,3 +150,10 @@ expand_mode = 4
 [node name="Control8" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+
+[node name="Logo" type="Sprite2D" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(642, 359)
+scale = Vector2(0.342387, 0.342387)
+texture = ExtResource("8_h30m1")

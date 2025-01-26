@@ -9,13 +9,37 @@ script = ExtResource("1_h2yge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_top = -70.0
+offset_right = 43.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="Goal" type="RichTextLabel" parent="CanvasLayer/PanelContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "0 / 15"
+fit_content = true
+autowrap_mode = 0
+
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 unique_name_in_owner = true
 position = Vector2(899, 330)
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
-zoom = Vector2(0.5, 0.5)
 
 [node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]
 position = Vector2(-1000, -1000)

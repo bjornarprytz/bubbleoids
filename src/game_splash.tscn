@@ -32,9 +32,9 @@ unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
 offset_left = 540.0
-offset_top = 582.785
+offset_top = 581.0
 offset_right = 740.0
-offset_bottom = 699.785
+offset_bottom = 698.0
 texture = ExtResource("4_xcqkv")
 
 [node name="up" type="RichTextLabel" parent="Controls"]

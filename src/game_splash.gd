@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if (event is not InputEventMouseMotion and event is not InputEventJoypadMotion):
+	if (event is not InputEventMouseMotion and event is not InputEventJoypadMotion and event.is_pressed()):
 		_next_scene()
 
 func _next_scene():

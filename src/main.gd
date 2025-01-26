@@ -1,10 +1,10 @@
 extends Node2D
 @onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
-@onready var canvas_modulate: CanvasModulate = %CanvasModulate
 @onready var goal: RichTextLabel = %Goal
 @onready var state: RichTextLabel = %State
 @onready var controls: RichTextLabel = %Controls
+@onready var fade_out: ColorRect = %FadeOut
 
 var discovered: Array[String] = []
 
@@ -19,7 +19,9 @@ func _process(delta: float) -> void:
 
 func _on_game_over(win: bool):
 	var tween = create_tween()
-	tween.tween_property(canvas_modulate, "modulate", Color.BLACK, 5.69)
+	fade_out.show()
+	fade_out.modulate.a = 0.0
+	tween.tween_property(fade_out, "modulate:a", 1.0, 5.69)
 	await tween.finished
 	get_tree().change_scene_to_file("res://credits.tscn")
 

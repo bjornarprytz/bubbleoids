@@ -17,7 +17,6 @@ func _on_beat(number: int) -> void:
 		return
 
 	fresh_start = true
-	push_warning("Started fresh")
 
 	if (number % 4 == 0):        
 		start_scroll = true

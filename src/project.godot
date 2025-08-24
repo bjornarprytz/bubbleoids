@@ -17,7 +17,8 @@ config/icon="uid://cvwqhr20r4c75"
 
 [audio]
 
-driver/driver="WebAudio"
+general/default_playback_type.web=0
+driver/driver=""
 
 [autoload]
 

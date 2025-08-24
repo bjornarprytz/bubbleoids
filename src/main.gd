@@ -8,6 +8,7 @@ extends Node2D
 @onready var tutorial: PanelContainer = %Tutorial
 
 func _ready() -> void:
+	print ("Audio Driver: %s" % AudioServer.get_driver_name())
 	Events.discovered = []
 	Events.game_over.connect(_on_game_over)
 	player.atmosphere_entered.connect(_on_atmosphere_entered)

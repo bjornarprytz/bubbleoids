@@ -55,10 +55,10 @@ func random_color() -> Color:
 		randf_range(0, 1)
 	)
 
-func random_vector(min: float = -1, max: float = 1) -> Vector2:
+func random_vector(min_: float = -1, max_: float = 1) -> Vector2:
 	return Vector2(
-		randf_range(min, max),
-		randf_range(min, max)
+		randf_range(min_, max_),
+		randf_range(min_, max_)
 	)
 
 func fade_in(node: CanvasItem, duration: float) -> Tween:

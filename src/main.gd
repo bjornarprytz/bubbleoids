@@ -14,10 +14,10 @@ func _ready() -> void:
 	player.orbit_entered.connect(_on_orbit_entered)
 	player.orbit_exited.connect(_on_orbit_exited)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	camera.position = player.position
 
-func _on_game_over(win: bool):
+func _on_game_over(_win: bool):
 	var tween = create_tween()
 	fade_out.show()
 	fade_out.modulate.a = 0.0
@@ -38,7 +38,7 @@ func _on_atmosphere_entered(planet: Planet):
 		return
 
 	Events.discovered.push_back(planet.type)
-	Symphony.add_instrument()
+	Symphony.next_track()
 	_update_goal()
 	Events.planet_discovered.emit(planet)
 	

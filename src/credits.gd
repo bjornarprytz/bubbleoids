@@ -6,18 +6,20 @@ extends Node2D
 
 var start_scroll = false
 
-var beats_before_scroll: int = 3
+var fresh_start: bool = false
 
 func _ready() -> void:
 	Symphony.full_ensemble()
 	Symphony.beat.connect(_on_beat)
 
 func _on_beat(number: int) -> void:
-	if (number % 4 == 0):
-		beats_before_scroll -= 1
-		if (beats_before_scroll > 0):
-			return
-		
+	if (number % 16 != 0 && !fresh_start):
+		return
+
+	fresh_start = true
+	push_warning("Started fresh")
+
+	if (number % 4 == 0):        
 		start_scroll = true
 		if (!Symphony.pop_instrument()):
 			await get_tree().create_timer(1.69).timeout

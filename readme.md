@@ -6,7 +6,6 @@ game on itch.io: [link](https://thewarlock.itch.io/soundship)
 
 ### Bugs
 
-- Outro build-down is a bit jarring (not synced)
 - Sometimes infinite scroll doesn't scroll properly
 
 ### Nice to have

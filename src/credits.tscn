@@ -71,7 +71,7 @@ texture = ExtResource("1_nm7lk")
 expand_mode = 5
 
 [node name="Control3" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="2" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits"]
@@ -137,7 +137,7 @@ texture = ExtResource("5_4av4j")
 expand_mode = 4
 
 [node name="Control6" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
-custom_minimum_size = Vector2(0, 450)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="Ship" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]

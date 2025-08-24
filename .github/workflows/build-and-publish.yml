@@ -10,7 +10,7 @@ env:
   ITCHIO_USERNAME: thewarlock
   GAME_NAME: soundship
   PROJECT_PATH: "./src/"
-  GODOT_VERSION: 4.4-beta1
+  GODOT_VERSION: 4.5-beta3
 
 jobs:
   export-game:

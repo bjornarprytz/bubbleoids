@@ -15,6 +15,10 @@ run/main_scene="uid://bi8uuojij5yv4"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="uid://cvwqhr20r4c75"
 
+[audio]
+
+driver/driver="WebAudio"
+
 [autoload]
 
 Utility="*res://autoloads/utility.gd"

@@ -28,7 +28,6 @@ func _on_beat(number: int) -> void:
 			tween.tween_property(scroll_container, "modulate:a", 0.0, 1.69)
 			tween.tween_callback(thanks.play.bind(.32))
 			tween.tween_property(logo, "modulate:a", 1.0, 1.69)
-			
 
 func _physics_process(_delta: float) -> void:
 	if (start_scroll):

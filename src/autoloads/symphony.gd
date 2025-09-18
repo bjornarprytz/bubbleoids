@@ -44,53 +44,25 @@ var track_progression: Array[AudioStream] = [
 var beat_number: int = 0
 var seconds_per_beat: float = 60.0 / tempo
 var track_length = track_progression[0].get_length()
+var highest_beat = int(track_length / seconds_per_beat) + 1
 
 var start_beat = false
 
 var prev_playback_position: float = 0.0
 
-# Calibrated timer that schedules the next beat based on the audio playback clock
-var timer: Timer
-
-func _ready() -> void:
-	timer = Timer.new()
-	add_child(timer)
-	# we use one_shot and schedule the next beat manually to keep calibration
-	timer.one_shot = true
-	timer.autostart = false
-	timer.wait_time = seconds_per_beat
-	timer.timeout.connect(_on_Timer_timeout)
-
-func _on_Timer_timeout() -> void:
-	beat_number += 1
-	beat.emit(beat_number)
-
-	# Schedule the next beat precisely
-	schedule_next_beat()
-
-func schedule_next_beat() -> void:
-	# Schedules the timer to fire exactly at the next beat according to the audio clock
-	var current_player = get_current_player()
-	if current_player.stream == null:
+func _physics_process(_delta: float) -> void:
+	if !start_beat:
 		return
 
-	var current_playback_position: float = current_player.get_playback_position() + AudioServer.get_time_since_last_mix()
-
-	var interval = current_playback_position - prev_playback_position
+	var current_player = get_current_player()
+	var current_playback_position: float = current_player.get_playback_position()
 	
-	if interval < 0.0:
-		# Looping back to start of track
-		interval += track_length
+	var next_beat = (int)(current_playback_position / seconds_per_beat) % highest_beat
 
-	var drift = seconds_per_beat - interval
-	prev_playback_position = current_playback_position
-
-	var time_to_next = seconds_per_beat + (drift / 4.0)
-
-	print("Interval: %s, Drift: %s, Next in: %s" % [interval, drift, time_to_next])
-	
-	timer.wait_time = time_to_next
-	timer.start()
+	if next_beat != beat_number:
+		beat_number = next_beat
+		beat.emit(beat_number)
+		print("%s/%s" % [beat_number, highest_beat])
 
 func start_intro():
 	main.volume_db = 0.0
@@ -103,7 +75,6 @@ func full_ensemble():
 func switch_to_track(number: int):
 	if !start_beat:
 		start_beat = true
-		timer.start()
 	current_track_index = number
 	var track = track_progression[current_track_index] as AudioStream
 
@@ -134,7 +105,6 @@ func next_track():
 func pop_instrument() -> bool:
 	if current_track_index <= 0:
 		start_beat = false
-		timer.stop()
 		var current_player = get_current_player()
 		current_player.stop()
 		return false
